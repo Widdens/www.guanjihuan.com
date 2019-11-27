@@ -44,7 +44,7 @@ def transfer_matrix(fermi_energy, h00, h01, dim):   # 转移矩阵T。dim是传�
     transfer[0:dim, 0:dim] = np.dot(np.linalg.inv(h01), fermi_energy*np.identity(dim)-h00)   # np.dot()等效于np.matmul()
     transfer[0:dim, dim:2*dim] = np.dot(-1*np.linalg.inv(h01), h01.transpose().conj())
     transfer[dim:2*dim, 0:dim] = np.identity(dim)
-    transfer[dim:2*dim, dim:2*dim] = 0  # a:b代表 a <= x < b
+    transfer[dim:2*dim, dim:2*dim] = 0  # a:b代表 a <= x < b，左闭右开
     return transfer  # 返回转移矩阵
 
 
