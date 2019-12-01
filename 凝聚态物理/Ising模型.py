@@ -36,7 +36,7 @@ def get_one_sample(sizeOfSample, temperature):
 
 
 def Metropolis(S, T):  # S是输入的初始状态， T是温度
-    delta_max = 0.5  # 角度最大的变化度数，默认是90度，也可以调整为其他
+    delta_max = 0.5 * np.pi # 角度最大的变化度数，默认是90度，也可以调整为其他
     k = 1  # 玻尔兹曼常数
     for i in range(S.shape[0]):
         for j in range(S.shape[0]):
