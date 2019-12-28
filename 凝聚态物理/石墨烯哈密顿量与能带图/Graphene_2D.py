@@ -7,7 +7,7 @@ import functools  # 使用偏函数functools.partial()
 
 def hamiltonian(k1, k2, M, t1, a=1/sqrt(3)):  # Haldane哈密顿量(a为原子间距，不赋值的话默认为1/sqrt(3)）
     # 初始化为零矩阵
-    h0 = np.zeros((2, 2))*(1+0j)   # 乘(1+0j)是为了把h0转为复数
+    h0 = np.zeros((2, 2))*(1+0j)   # 乘(1+0j)是为了把h00转为复数
     h1 = np.zeros((2, 2))*(1+0j)
     h2 = np.zeros((2, 2))*(1+0j)
 
