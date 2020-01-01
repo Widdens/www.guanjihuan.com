@@ -19,9 +19,6 @@ program QPI  !QPI主程序
     parameter(Flname='')  !可以写上输出文件路径，也可以不写，输出存在当前文件的路径
 
     omega=0.070d0
-    kx=0.d0
-    kz=0.d0
-    ky=0.d0
     open(unit=10,file=Flname//'Spectral function_w=0.07.txt')
     open(unit=20,file=Flname//'QPI_intra_nonmag_w=0.07.txt')
     call CPU_TIME(time_begin)
