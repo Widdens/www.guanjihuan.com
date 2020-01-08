@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import *   # 引入sqrt(), pi, exp等
 import cmath  # 要处理复数情况，用到cmath.exp()
-import functools  # 使用偏函数functools.partial()
+import functools  # 使用偏函数functools.partial()，这里不是数学上的偏导，而是程序上给函数的部分参数赋值
 
 
 def hamiltonian(k, N, t):  # 准一维方格子哈密顿量
