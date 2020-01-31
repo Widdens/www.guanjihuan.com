@@ -13,6 +13,7 @@ def hamiltonian(kx, ky):  # 量子反常霍尔QAH模型（该参数对应的陈�
     matrix[0, 1] = 2*t1*cos(kx)-1j*2*t1*cos(ky)
     matrix[1, 0] = 2*t1*cos(kx)+1j*2*t1*cos(ky)
     matrix[0, 0] = m+2*t3*sin(kx)+2*t3*sin(ky)+2*t2*cos(kx+ky)
+    matrix[1, 1] = -(m+2*t3*sin(kx)+2*t3*sin(ky)+2*t2*cos(kx+ky))
     return matrix
 
 
