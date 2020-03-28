@@ -24,8 +24,8 @@ def hamiltonian(k1, k2, M, t1, t2, phi, a=1/sqrt(3)):  # Haldane哈密顿量(a�
     # h1[0, 1] = h1[1, 0].conj()
 
     # 次近邻项
-    h2[0, 0] = t2*cmath.exp(-1j*phi)*(cmath.exp(1j*sqrt(3)*k1*a)+cmath.exp(-1j*sqrt(3)/2*k1*a+1j*3/2*k2*a)+cmath.exp(1j*sqrt(3)/2*k1*a+1j*3/2*k2*a))
-    h2[1, 1] = t2*cmath.exp(1j*phi)*(cmath.exp(1j*sqrt(3)*k1*a)+cmath.exp(-1j*sqrt(3)/2*k1*a+1j*3/2*k2*a)+cmath.exp(1j*sqrt(3)/2*k1*a+1j*3/2*k2*a))
+    h2[0, 0] = t2*cmath.exp(-1j*phi)*(cmath.exp(1j*sqrt(3)*k1*a)+cmath.exp(-1j*sqrt(3)/2*k1*a+1j*3/2*k2*a)+cmath.exp(-1j*sqrt(3)/2*k1*a-1j*3/2*k2*a))
+    h2[1, 1] = t2*cmath.exp(1j*phi)*(cmath.exp(1j*sqrt(3)*k1*a)+cmath.exp(-1j*sqrt(3)/2*k1*a+1j*3/2*k2*a)+cmath.exp(-1j*sqrt(3)/2*k1*a-1j*3/2*k2*a))
 
     matrix = h0 + h1 + h2 + h2.transpose().conj()
     return matrix
@@ -33,8 +33,8 @@ def hamiltonian(k1, k2, M, t1, t2, phi, a=1/sqrt(3)):  # Haldane哈密顿量(a�
 
 def main():
     hamiltonian0 = functools.partial(hamiltonian, M=2/3, t1=1, t2=1/3, phi=pi/4, a=1/sqrt(3))  # 使用偏函数，固定一些参数
-    k1 = np.linspace(-2*pi, 2*pi, 800)
-    k2 = np.linspace(-2*pi, 2*pi, 800)
+    k1 = np.linspace(-2*pi, 2*pi, 500)
+    k2 = np.linspace(-2*pi, 2*pi, 500)
     plot_bands_two_dimension(k1, k2, hamiltonian0)
 
 
