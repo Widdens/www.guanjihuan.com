@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # 万有引力常数
 G = 1
 
@@ -10,12 +11,12 @@ m2 = 12  # 红色
 m3 = 8  # 蓝色
 
 # 三体的初始位置
-x1 = 110  # 绿色
+x1 = 300  # 绿色
 y1 = 60
 x2 = -120  # 红色
 y2 = -200
 x3 = -100  # 蓝色
-y3 = 100
+y3 = 150
 
 # 三体的初始速度
 v1_x = 0  # 绿色
@@ -36,13 +37,13 @@ x2_all = [x2]
 y2_all = [y2]
 x3_all = [x3]
 y3_all = [y3]
-for i in range(5000):  # while True:  # 无限循环用这个
+for i in range(20000):  # while True:  # 无限循环用这个
     distance12 = np.sqrt((x1-x2)**2+(y1-y2)**2)   # 物体1和物体2之间的距离
     distance13 = np.sqrt((x1-x3)**2+(y1-y3)**2)   # 物体1和物体3之间的距离
     distance23 = np.sqrt((x2-x3)**2+(y2-y3)**2)   # 物体2和物体3之间的距离
     # 对物体1的计算
-    a1_2 = G*m2/distance12  # 物体2对物体1的加速度（用上万有引力公式）
-    a1_3 = G*m3/distance13  # 物体3对物体1的加速度
+    a1_2 = G*m2/(distance12**2)  # 物体2对物体1的加速度（用上万有引力公式）
+    a1_3 = G*m3/(distance13**2)  # 物体3对物体1的加速度
     a1_x = a1_2*(x2-x1)/distance12 + a1_3*(x3-x1)/distance13  # 物体1受到的水平加速度
     a1_y = a1_2*(y2-y1)/distance12 + a1_3*(y3-y1)/distance13  # 物体1受到的垂直加速度
     v1_x = v1_x + a1_x*t  # 物体1的速度
@@ -52,8 +53,8 @@ for i in range(5000):  # while True:  # 无限循环用这个
     x1_all = np.append(x1_all, x1)  # 记录轨迹
     y1_all = np.append(y1_all, y1)  # 记录轨迹
     # 对物体2的计算
-    a2_1 = G*m1/distance12
-    a2_3 = G*m3/distance23
+    a2_1 = G*m1/(distance12**2)
+    a2_3 = G*m3/(distance23**2)
     a2_x = a2_1*(x1-x2)/distance12 + a2_3*(x3-x2)/distance23
     a2_y = a2_1*(y1-y2)/distance12 + a2_3*(y3-y2)/distance23
     v2_x = v2_x + a2_x*t
@@ -63,8 +64,8 @@ for i in range(5000):  # while True:  # 无限循环用这个
     x2_all = np.append(x2_all, x2)
     y2_all = np.append(y2_all, y2)
     # 对物体3的计算
-    a3_1 = G*m1/distance13
-    a3_2 = G*m2/distance23
+    a3_1 = G*m1/(distance13**2)
+    a3_2 = G*m2/(distance23**2)
     a3_x = a3_1*(x1-x3)/distance13 + a3_2*(x2-x3)/distance23
     a3_y = a3_1*(y1-y3)/distance13 + a3_2*(y2-y3)/distance23
     v3_x = v3_x + a3_x*t
@@ -95,8 +96,8 @@ for i in range(5000):  # while True:  # 无限循环用这个
             break
 
     plt.axis([axis_x-observation_max, axis_x+observation_max, axis_y-observation_max,  axis_y+observation_max])
-    plt.show()  # 显示图像
-    plt.pause(0.00001)  # 暂停0.00001，防止画图过快
-    # if np.mod(i, 20) == 0:
-    #     plt.savefig('three-body/'+str(i)+'.jpg')  # 保存为图片可以用来做动画
+    # plt.show()  # 显示图像
+    # plt.pause(0.00001)  # 暂停0.00001，防止画图过快
+    if np.mod(i, 1000) == 0:
+        plt.savefig('three-body/'+str(i)+'.jpg')  # 保存为图片可以用来做动画
     plt.clf()  # 清空
