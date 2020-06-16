@@ -32,8 +32,8 @@ def main():
     i0 = 0
     for Fermi_energy in Fermi_energy_array:
         print(Fermi_energy)  # 查看计算的进展情况
-        green = -np.linalg.inv((Fermi_energy+0.1j)*np.eye(dim)-h)   # 体系的格林函数
-        total_DOS = np.trace(np.imag(green))    # 通过格林函数求得总态密度
+        green = np.linalg.inv((Fermi_energy+0.1j)*np.eye(dim)-h)   # 体系的格林函数
+        total_DOS = -np.trace(np.imag(green))    # 通过格林函数求得总态密度(忽略系数)
         total_DOS_array[i0] = total_DOS   # 记录每个Fermi_energy对应的总态密度
         i0 += 1
     sum_up = np.sum(total_DOS_array)*plot_precision    # 用于图像归一化
