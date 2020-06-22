@@ -12,7 +12,7 @@ program QPI  !QPI主程序
     use global
     implicit none
     integer i,j,info,index_0(4)
-    double precision omega,kx,ky,kz,Eigenvalues(4),eta,V0,kx1,kx2,ky1,ky2,qx,qy,time_begin,time_end
+    double precision omega,kx,ky,Eigenvalues(4),eta,V0,kx1,kx2,ky1,ky2,qx,qy,time_begin,time_end
     parameter(eta=0.005)
     complex*16 H0(4,4),green_0(4,4),green_1(4,4),green_0_k1(4,4),green_0_k2(4,4),A_spectral,V(4,4),gamma_0(4,4),Temp_0(4,4),T(4,4),g_1,rho_1
     character(len=*):: Flname
@@ -32,7 +32,7 @@ program QPI  !QPI主程序
     do kx=-Pi,Pi,0.01d0      !谱函数图案的精度
         write(10,"(f20.10,x)",advance='no') kx
         do ky=-Pi,Pi,0.01d0         !谱函数图案的精度
-            call Greenfunction_clean(kx,ky,kz,eta,omega,green_0)
+            call Greenfunction_clean(kx,ky,eta,omega,green_0)
             A_spectral=-(green_0(1,1)+green_0(3,3))/Pi
             write(10,"(f20.10)",advance='no') imag(A_spectral)
         enddo
@@ -49,7 +49,7 @@ program QPI  !QPI主程序
     gamma_0=0.d0
     do kx=-Pi,Pi,0.01
         do ky=-Pi,Pi,0.01
-            call Greenfunction_clean(kx,ky,kz,eta,omega,green_0)
+            call Greenfunction_clean(kx,ky,eta,omega,green_0)
             do i=1,4
                 do j=1,4
                     gamma_0(i,j)=gamma_0(i,j)+green_0(i,j)*0.01*0.01
@@ -79,8 +79,8 @@ program QPI  !QPI主程序
                 kx2=kx1+qx
                 do ky1=-Pi,Pi,0.06  !积分的精度
                     ky2=ky1+qy
-                    call Greenfunction_clean(kx1,ky1,kz,eta,omega,green_0_k1)
-                    call Greenfunction_clean(kx2,ky2,kz,eta,omega,green_0_k2)
+                    call Greenfunction_clean(kx1,ky1,eta,omega,green_0_k1)
+                    call Greenfunction_clean(kx2,ky2,eta,omega,green_0_k2)
                     call gemm(green_0_k1,T,Temp_0)
                     call gemm(Temp_0, green_0_k2, green_1)
                     g_1=green_1(1,1)-dconjg(green_1(1,1))+green_1(3,3)-dconjg(green_1(3,3))
@@ -100,15 +100,15 @@ end program
 
     
     
-subroutine Greenfunction_clean(kx,ky,kz,eta,omega,green_0)  !干净体系的格林函数
+subroutine Greenfunction_clean(kx,ky,eta,omega,green_0)  !干净体系的格林函数
 use blas95
 use lapack95,only:GETRF,GETRI
 use global
 integer info,index_0(4)
-double precision, intent(in):: kx,ky,kz,eta,omega
+double precision, intent(in):: kx,ky,eta,omega
 complex*16 H0(4,4)
 complex*16,intent(out):: green_0(4,4)
-call Hamiltonian(kx,ky,kz,H0)
+call Hamiltonian(kx,ky,H0)
 green_0=H0
 do i=1,4
     green_0(i,i)=omega+(0.d0,1.d0)*eta-green_0(i,i)
@@ -118,12 +118,12 @@ end subroutine Greenfunction_clean
     
 
     
-subroutine Hamiltonian(kx,ky,kz,Matrix)  !哈密顿量
+subroutine Hamiltonian(kx,ky,Matrix)  !哈密顿量
 use global
 implicit none
 integer i,j
 double precision t1,t2,t3,t4,mu,epsilon_x,epsilon_y,epsilon_xy,delta_1,delta_2,delta_0
-double precision, intent(in):: kx,ky,kz
+double precision, intent(in):: kx,ky
 complex*16,intent(out):: Matrix(4,4)
 
 t1=-1;t2=1.3;t3=-0.85;t4=-0.85;delta_0=0.1;mu=1.54
