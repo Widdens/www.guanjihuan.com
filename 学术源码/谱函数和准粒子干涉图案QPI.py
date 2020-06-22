@@ -21,7 +21,7 @@ def spectral_function(fermi_energy, k1, k2, hamiltonian):  # 计算谱函数
         j0 = 0
         for k20 in k2:
             green = green_function(fermi_energy, k10, k20, hamiltonian)
-            spectrum[i0, j0] = (np.imag(green[0,0])+np.imag(green[0,0]))/(-pi)
+            spectrum[i0, j0] = (np.imag(green[0,0])+np.imag(green[2,2]))/(-pi)
             j0 += 1
         i0 += 1
     # print(spectrum)
