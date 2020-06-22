@@ -59,7 +59,7 @@ def qpi(fermi_energy, q1, q2, hamiltonian, potential_i):   # 计算QPI
                     induced_local_density[i0, j0] = induced_local_density[i0, j0]+temp*np.square(step_length)
             j0 += 1
         i0 += 1
-        write_matrix_k1_k2(q1, q2, induced_local_density, 'QPI')  # 数据写入文件（临时写入，会被多次替代）
+        write_matrix_k1_k2(q1, q2, np.real(induced_local_density*1j/np.square(2*pi)/(2*pi)), 'QPI')  # 数据写入文件（临时写入，会被多次替代）
     induced_local_density = np.real(induced_local_density*1j/np.square(2*pi)/(2*pi))
     return induced_local_density
 
@@ -143,7 +143,7 @@ def main():    # 主程序
     potential_i[1, 1] = - potential_i[1, 1]   # for nonmagnetic
     potential_i[3, 3] = - potential_i[3, 3] 
     induced_local_density = qpi(fermi_energy+energy_broadening_width*1j, q1, q2, hamiltonian, potential_i)  # 调用QPI子程序
-    write_matrix_k1_k2(q1, q2, induced_local_density, 'QPI')  # 把QPI数据写入文件（这里用的方法是计算结束后一次性把数据写入，也可以改为计算一个数据写入一个数据）
+    write_matrix_k1_k2(q1, q2, induced_local_density, 'QPI')  # 把QPI数据写入文件（这里用的方法是计算结束后一次性把数据写入）
     # plot_contour(q1, q2, induced_local_density, 'QPI')  # 直接显示QPI图像（保存图像）
     end_clock = time.perf_counter()
     print('CPU执行时间=', end_clock - start_clock)
