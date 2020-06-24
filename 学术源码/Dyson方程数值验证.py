@@ -36,7 +36,7 @@ def main():
     h00 = matrix_00(width)  # 一个切片（slide)内的哈密顿量
     h01 = matrix_01(width)   # 切片之间的跃迁项（hopping）
     hamiltonian = matrix_whole(width, length)  # 方格子整体的哈密顿量，宽度为width，长度为length
-    fermi_energy = 0.1   # 费米能取为0.1为例
+    fermi_energy = 0.1   # 费米能取为0.1为例。按理来说计算格林函数时，这里需要加上一个无穷小的虚数，但Python中好像不加也不会有什么问题。
 
     start_1= time.perf_counter()
     green = General_way(fermi_energy, hamiltonian)  # 利用通常直接求逆的方法得到整体的格林函数green
