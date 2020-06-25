@@ -26,9 +26,9 @@ def hamiltonian(k, N, M, t1, t2, phi):  # Haldane哈密顿量(N是条带的宽�
         h00[i*4+3, i*4+2] = t1
 
         # 次近邻
-        h00[i*4+0, i*4+2] = t2*cmath.exp(1j*phi)
+        h00[i*4+0, i*4+2] = t2*cmath.exp(-1j*phi)  # 逆时针为正，顺时针为负
         h00[i*4+2, i*4+0] = h00[i*4+0, i*4+2].conj()
-        h00[i*4+1, i*4+3] = t2*cmath.exp(1j*phi)
+        h00[i*4+1, i*4+3] = t2*cmath.exp(-1j*phi)
         h00[i*4+3, i*4+1] = h00[i*4+1, i*4+3].conj()
     for i in range(N-1):
         # 最近邻
@@ -36,9 +36,9 @@ def hamiltonian(k, N, M, t1, t2, phi):  # Haldane哈密顿量(N是条带的宽�
         h00[(i+1)*4+0, i*4+3] = t1
 
         # 次近邻
-        h00[i*4+2, (i+1)*4+0] = t2*cmath.exp(-1j*phi)
+        h00[i*4+2, (i+1)*4+0] = t2*cmath.exp(1j*phi)
         h00[(i+1)*4+0, i*4+2] = h00[i*4+2, (i+1)*4+0].conj()
-        h00[i*4+3, (i+1)*4+1] = t2*cmath.exp(-1j*phi)
+        h00[i*4+3, (i+1)*4+1] = t2*cmath.exp(1j*phi)
         h00[(i+1)*4+1, i*4+3] = h00[i*4+3, (i+1)*4+1].conj()
 
     # 原胞间的跃迁h01
@@ -48,19 +48,19 @@ def hamiltonian(k, N, M, t1, t2, phi):  # Haldane哈密顿量(N是条带的宽�
         h01[i*4+2, i*4+3] = t1
 
         # 次近邻
-        h01[i*4+0, i*4+0] = t2*cmath.exp(-1j*phi)
-        h01[i*4+1, i*4+1] = t2*cmath.exp(1j*phi)
-        h01[i*4+2, i*4+2] = t2*cmath.exp(-1j*phi)
-        h01[i*4+3, i*4+3] = t2*cmath.exp(1j*phi)
+        h01[i*4+0, i*4+0] = t2*cmath.exp(1j*phi)
+        h01[i*4+1, i*4+1] = t2*cmath.exp(-1j*phi)
+        h01[i*4+2, i*4+2] = t2*cmath.exp(1j*phi)
+        h01[i*4+3, i*4+3] = t2*cmath.exp(-1j*phi)
 
-        h01[i*4+1, i*4+3] = t2*cmath.exp(-1j*phi)
-        h01[i*4+2, i*4+0] = t2*cmath.exp(1j*phi)
+        h01[i*4+1, i*4+3] = t2*cmath.exp(1j*phi)
+        h01[i*4+2, i*4+0] = t2*cmath.exp(-1j*phi)
         if i != 0:
-            h01[i*4+1, (i-1)*4+3] = t2*cmath.exp(-1j*phi)
+            h01[i*4+1, (i-1)*4+3] = t2*cmath.exp(1j*phi)
     for i in range(N-1):
-        h01[i*4+2, (i+1)*4+0] = t2*cmath.exp(1j*phi)
+        h01[i*4+2, (i+1)*4+0] = t2*cmath.exp(-1j*phi)
 
-    matrix = h00 + h01*cmath.exp(-1j*k) + h01.transpose().conj()*cmath.exp(1j*k)
+    matrix = h00 + h01*cmath.exp(1j*k) + h01.transpose().conj()*cmath.exp(-1j*k)
     return matrix
 
 
