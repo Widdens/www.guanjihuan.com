@@ -18,18 +18,18 @@ def matrix_01(width=10):  # 不赋值时默认为10
 
 
 def main():
-    start_clock = time.clock()
+    start_clock = time.perf_counter()
     h00 = matrix_00(width=5)
     h01 = matrix_01(width=5)
     fermi_energy_array = np.arange(-4, 4, .01)
     plot_conductance_energy(fermi_energy_array, h00, h01)
-    end_clock = time.clock()
+    end_clock = time.perf_counter()
     print('CPU执行时间=', end_clock-start_clock)
 
 
 def plot_conductance_energy(fermi_energy_array, h00, h01):  # 画电导与费米能关系图
     dim = fermi_energy_array.shape[0]
-    cond = np.zeros((dim, dim))
+    cond = np.zeros(dim)
     i0 = 0
     for fermi_energy0 in fermi_energy_array:
         cond0 = np.real(conductance(fermi_energy0 + 1e-6j, h00, h01))
