@@ -52,17 +52,14 @@ def plot_bands_two_dimension(k1, k2, hamiltonian, filename='bands_2D'):  # 画3�
         for k20 in k2:
             matrix0 = hamiltonian(k10, k20)
             eigenvalue, eigenvector = np.linalg.eig(matrix0)
-            eigenvalue_k[i0, j0, :] = np.sort(np.real(eigenvalue[:]))
+            eigenvalue_k[j0, i0, :] = np.sort(np.real(eigenvalue[:]))
             j0 += 1
         i0 += 1
     fig = plt.figure()
     ax = fig.gca(projection='3d')
     k1, k2 = np.meshgrid(k1, k2)
     for dim0 in range(dim):  # 或者用np.arange(dim)
-        # dim0 = int(dim/2)
-        ax.plot_surface(k1, k2, eigenvalue_k[:, :, dim0], cmap=cm.coolwarm, linewidth=0, antialiased=False)  # cm.coolwarm,  'rainbow'
-    # plt.savefig(filename+'.jpg')
-    # plt.savefig(filename+'.eps')
+        ax.plot_surface(k1, k2, eigenvalue_k[:, :, dim0], cmap=cm.coolwarm, linewidth=0, antialiased=False)
     plt.show()
 
 
