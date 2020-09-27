@@ -45,7 +45,7 @@ def plot_bands_two_dimension(k1, k2, hamiltonian, filename='bands_2D'):  # ç”»3ç
     dim = hamiltonian(0, 0).shape[0]
     dim1 = k1.shape[0]
     dim2 = k2.shape[0]
-    eigenvalue_k = np.zeros((dim1, dim2, dim))
+    eigenvalue_k = np.zeros((dim2, dim1, dim))
     i0 = 0
     for k10 in k1:
         j0 = 0
