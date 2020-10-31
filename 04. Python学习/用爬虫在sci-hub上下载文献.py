@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from urllib.request import urlopen,urlretrieve
+from urllib.request import urlopen
 import re  # 正则模块
 import requests
 import os
@@ -21,5 +21,8 @@ name = re.search(re.compile('fdp.*?/'),pdf_URL[::-1]).group()[::-1][1::]
 print('PDF文件名是：', name)
 print('保存的位置在：', os.getcwd())
 print('\n正在下载')
-urlretrieve(pdf_URL, name)
+r = requests.get(pdf_URL, stream=True)
+with open(name, 'wb') as f:
+    for chunk in r.iter_content(chunk_size=32):
+        f.write(chunk)
 print('下载完成！')
