@@ -18,7 +18,7 @@ def hamiltonian(kx, ky):  # 量子反常霍尔QAH模型（该参数对应的陈�
 
 
 def main():
-    start_clock = time.clock()
+    start_time = time.process_time()
     n = 1000  # 积分密度
     delta = 1e-9  # 求导的偏离量
     chern_number = 0  # 陈数初始化
@@ -57,8 +57,8 @@ def main():
             chern_number = chern_number + F*(2*pi/n)**2
     chern_number = chern_number/(2*pi*1j)
     print('Chern number = ', chern_number)
-    end_clock = time.clock()
-    print('CPU执行时间(min)=', (end_clock-start_clock)/60)
+    end_time = time.process_time()
+    print('CPU执行时间(min)=', (end_time-start_time)/60)
 
 
 if __name__ == '__main__':
